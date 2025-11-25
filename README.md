@@ -1,10 +1,3 @@
-Perfect! I’ve rewritten your README so all **bash commands are in separate copy-friendly blocks**, making it super easy for anyone to copy them step by step, while keeping the professional, recruiter-friendly structure and visuals.
-
-Here’s the **updated README.md**:
-
----
-
-```markdown
 # 🌍 Air Quality Data Analysis (India, 2015–2024)
 
 [![Python](https://img.shields.io/badge/python-3.10-blue?style=flat-square)](https://www.python.org/)
