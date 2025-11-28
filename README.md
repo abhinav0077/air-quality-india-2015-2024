@@ -129,7 +129,7 @@ cd air-quality-india-2015-2024
 
 ```bash
 # Install required Python libraries
-pip install pandas numpy matplotlib seaborn
+pip install pandas numpy matplotlib seaborn plotly streamlit prophet scipy statsmodels
 ```
 
 ### 3️⃣ Run Data Cleaning
