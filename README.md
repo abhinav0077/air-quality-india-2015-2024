@@ -46,20 +46,12 @@ air-quality-data-2015-2024/
 │
 ├── data/
 │   ├── raw/        # Original CSV files
-│   ├── cleaned/    # Cleaned datasets
-│   └── processed/  # Processed outputs
+│   ├── processed/  # Processed datasets
+│   └── output/     # Analysis outputs
 │
 ├── visuals/        # Plots, graphs & dashboards
-└── scripts/
-├── clean_data.py
-├── analyze_data.py
-├── report_top_cities.py
-├── pollutant_distribution.py
-├── city_trend_analysis.py
-├── correlation_matrix.py
-├── yearly_summary.py
-├── station_stats.py
-└── combined_dashboard.py
+├── scripts/        # Python scripts for analysis
+└── notebooks/      # Jupyter notebooks
 
 ````
 
@@ -76,33 +68,32 @@ air-quality-data-2015-2024/
 
 ## Key Features
 - **Automated Data Cleaning:** Removes duplicates, fixes missing values, standardizes dates.  
-- **Trend Analysis:** PM2.5 & PM10 trends for each city.  
-- **City Pollution Reports:** Annual ranking of most polluted cities, improving/declining trends.  
-- **Pollutant Distribution:** Histograms & KDE plots for major pollutants.  
-- **Yearly Summaries:** Average pollutant levels, max/min AQI, top polluted cities.  
-- **Correlation Heatmaps:** Relationships between pollutants.  
-- **Station-Level Insights:** Missing data rates, averages, top polluted stations.  
-- **Combined Dashboard:** Generates multiple visualizations at once.
+- **Trend Analysis:** PM2.5 trends over time for each dataset.  
+- **Top Polluted Cities:** Ranking of cities by average AQI.  
+- **Seasonal Trends:** Average pollutant levels by season.  
+- **City Pollution Over Years:** Trends in AQI for top cities.  
+- **Station Analysis:** Number of monitoring stations per city.  
+- **Pollution Hotspots:** Clustering of cities by pollution levels.
 
 ---
 
 ## Key Visualizations
-### PM2.5 & AQI Trends
+### PM2.5 Trends
 ![PM2.5 Trend](visuals/pm25_trend.png)
 
-### Pollutant Distribution Histograms
+### Seasonal Pollutant Trends
 ![Pollutant Distribution](visuals/pollutant_distribution.png)
 
-### Top Polluted Cities Charts
+### Top Polluted Cities
 ![Top Cities](visuals/top_cities.png)
 
-### Correlation Heatmaps
-![Correlation Heatmap](visuals/correlation_heatmap.png)
+### Pollution Hotspots
+![Pollution Hotspots](visuals/pollution_hotspots_clusters.png)
 
-### Yearly AQI Summaries
+### City Pollution Over Years
 ![Yearly Summary](visuals/yearly_summary.png)
 
-### Station-Level Performance Reports
+### Stations per City
 ![Station Stats](visuals/station_stats.png)
 
 ---
@@ -168,7 +159,7 @@ Contributions are welcome!
 
 **Abhinav Verma** – Aspiring Data Analyst / Data Scientist
 
-* [LinkedIn](https://www.linkedin.com/in/abhinav-verma-0077/)
+* LinkedIn: [LinkedIn](https://www.linkedin.com/in/abhinav-verma-0077/)
 * GitHub: [abhinav0077](https://github.com/abhinav0077)
 
 ---

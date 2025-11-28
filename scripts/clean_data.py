@@ -1,11 +1,16 @@
+# I created this script to clean the raw air quality data files.
+# It handles duplicates, missing values, data types, and saves cleaned versions.
+
 import pandas as pd
 import numpy as np
 import os
 from datetime import datetime
 
+# Paths to raw and processed data directories
 RAW_PATH = "data/raw/"
 PROCESSED_PATH = "data/processed/"
 
+# List of files I need to clean
 files = [
     "city_day.csv",
     "city_hour.csv",
@@ -15,14 +20,18 @@ files = [
 ]
 
 def clean_file(filename):
+    """
+    Clean a single CSV file by handling duplicates, dates, numerics, and categories.
+    I designed this function to standardize the data for analysis.
+    """
     print(f"Cleaning {filename}...")
     df = pd.read_csv(RAW_PATH + filename)
 
-    # Basic cleaning
+    # Remove duplicate rows and empty rows
     df = df.drop_duplicates()
     df = df.dropna(how='all')
 
-    # Handle date columns
+    # Convert date columns to datetime and standardize format
     date_cols = ['Date', 'Datetime']
     for col in date_cols:
         if col in df.columns:
@@ -31,36 +40,35 @@ def clean_file(filename):
             df[col] = df[col].dt.strftime('%Y-%m-%d %H:%M:%S')
             break
 
-    # Handle numeric columns
+    # Convert pollutant columns to numeric and fill missing values with median
     numeric_cols = ['PM2.5', 'PM10', 'NO', 'NO2', 'NOx', 'NH3', 'CO', 'SO2', 'O3', 'Benzene', 'Toluene', 'Xylene', 'AQI']
     for col in numeric_cols:
         if col in df.columns:
             df[col] = pd.to_numeric(df[col], errors='coerce')
-            # Fill missing values with median for pollutants
+            # For pollutants, I fill missing values with median to avoid skewing data
             if col in ['PM2.5', 'PM10', 'NO', 'NO2', 'NOx', 'NH3', 'CO', 'SO2', 'O3', 'Benzene', 'Toluene', 'Xylene']:
                 df[col] = df[col].fillna(df[col].median())
-            # AQI should not be filled, keep as is
 
-    # Handle categorical columns
+    # Convert AQI bucket to category type
     if 'AQI_Bucket' in df.columns:
         df['AQI_Bucket'] = df['AQI_Bucket'].astype('category')
 
-    # Validate AQI ranges
+    # Ensure AQI values are within valid range (0-500)
     if 'AQI' in df.columns:
-        df['AQI'] = df['AQI'].clip(0, 500)  # AQI max is 500
+        df['AQI'] = df['AQI'].clip(0, 500)
 
-    # Sort by date if available
+    # Sort data by date for chronological order
     if 'Date' in df.columns:
         df = df.sort_values('Date').reset_index(drop=True)
     elif 'Datetime' in df.columns:
         df = df.sort_values('Datetime').reset_index(drop=True)
 
-    # Save cleaned file
+    # Save the cleaned file with "_cleaned" suffix
     output_name = filename.replace(".csv", "_cleaned.csv")
     df.to_csv(PROCESSED_PATH + output_name, index=False)
     print(f"Saved cleaned file: {output_name}")
 
-    # Generate summary
+    # Print a summary of the cleaned data
     summary = {
         'filename': output_name,
         'rows': len(df),
@@ -70,6 +78,7 @@ def clean_file(filename):
     print(f"Summary: {summary}")
 
 def main():
+    """Main function to clean all files in the list."""
     for f in files:
         clean_file(f)
 
